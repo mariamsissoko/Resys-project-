@@ -1,0 +1,8 @@
+Outils qu'on pourrait éventuellement utiliser : 
+
+- cell network synthesis (SCNS)  : https://manage.windowsazure.com/publishsettings
+et l'article correspondant : https://www.microsoft.com/en-us/research/project/scns/
+
+- outil de visualisation des datas / construction de graphes (développé par les profs):
+https://miic.curie.fr/workbench.php
+
