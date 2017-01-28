@@ -164,7 +164,7 @@ Afin d'obtenir un set de données non biaisées, nous avons choisi d'appliquer u
 \subsection{Gènes d'intérêt}
 %Expliquer tous les datasets formés : par lignée (fonctionnel) ou par type cellulaire (temporel). 
 Une fois le filtre appliqué, il nous a fallu procéder à différents tris des données. 
-\subsubsection{Tri par facteurs de transcription}
+\subsubsection{Tri par facteur de transcription}
 Les 42 gènes restant dans notre dataset n'étant pas tous impliqués directement dans la différenciation cellulaire, nous avons effectué un premier tri où ne sont conservés que les 33 facteurs de transcription. Les gènes marqueurs qui ne se trouvent plus dans le dataset sont les suivants : \textbf{Cdh1}, \textbf{Cdh5}, \textbf{EgfI7}, \textbf{Hbb-bH1}, \textbf{Itga2b} (ou CD41), \textbf{Kdr} (ou Flk1), \textbf{Kit}, \textbf{Pecam1}, \textbf{Procr}. Dans chacun des tris décrits ci-dessous, a été conservé un dataset avec les 42 gènes, et un autre avec les 33 facteurs de transciption afin de permettre d'analyser de façon spécifique toutes les interactions potentielles.
 \subsubsection{Tri par stade embryonnaire}
 Afin d'étudier les relations au niveau temporel, les données ont été séparées par type cellulaire présent (PS, NP, HF, 4SFG, 4SG). 
@@ -203,10 +203,40 @@ Face à la diversité des paramètres qui peuvent être modifiés via MIIC (sur 
 %Cependant, nous avons testé quelques dataset en modifiant la latence (par défaut : prise en compte) afin de voir si des différences notables quant aux relations entre les noeuds apparaissaient.
 
 Il faut prendre en compte que plus le seuil de confiance est élevé, moins les relations sont nombreuses, donc des gènes disparaissent du réseau ainsi formé. Cependant, ces relations restantes sont d'autant plus fiables. 
+
+\subsubsection{Tri par stade embryonnaire}
+Asynchrone, difficulté de recréer un réseau causal. 
+Importance des gènes marqueurs en tant qu'inducteur d'un stade embryonnaire... transition assurée par ces gènes ? Ou si gènes présents, suffisants pour passer dans l'état embryonnaire suivant ?
+
+
+\subsubsection{Tri par lignée}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{results/bleu}
+\caption{Lignée primitive}
+\label{fig:PS}
+\end{figure}
+
+% devrait pas avoir de Runx1 ou dans l'autre ?
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{results/rouge}
+\caption{Lignée hématopïétique}
+\label{fig:4SG}
+\end{figure}
+
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{results/violet}
+\caption{Lignée endothéliale}
+\label{fig:4SFG}
+\end{figure}
+
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\linewidth]{results/filtre33prof}
-\caption{Résultats issus de \textit{Verny et al. submitted}}
+\caption{Résultats issus de \textit{Verny et al. submitted} (les couleurs correspondent aux lignées décrites dans la figure \ref{fig:debut}).}
 \label{fig:filtre33prof}
 \end{figure}
 
@@ -214,52 +244,40 @@ Il faut prendre en compte que plus le seuil de confiance est élevé, moins les 
 \begin{figure*}[ht]
 \centering
 \includegraphics[width=\linewidth]{results/filtre33}
-\caption{Résultats obtenus avec un seuil de confiance de ? }
+\caption{Compromis obtenu après de nombreux tests sur les facteurs de transcription uniquement (les couleurs correspondent aux lignées décrites dans la figure \ref{fig:debut}).}
 \label{fig:filtre33}
 \end{figure*}
 
 
-
-
-\begin{figure*}[ht]
-\centering
-\includegraphics[width=\linewidth]{results/arbre1}
-\caption{Arbre obtenu par clustering hierarchique non supervisé - 42 gènes}
-\label{fig:arbre1}
-\end{figure*}
-
-\begin{figure*}[ht]
-\centering
-\includegraphics[width=\linewidth]{results/arbre33genes}
-\caption{Arbre obtenu par clustering hierarchique non supervisé - 33 gènes}
-\label{fig:arbre33}
-\end{figure*}
-
-
 \subsection{Vérifications expérimentales}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=\linewidth]{images/ikarosNotchGata}
-\caption{ikaros - Notch - Gata}
-\label{fig:ikarosNotchGata}
-\end{figure}
-
-
-\begin{figure*}[ht]
-\centering
-\includegraphics[width=\linewidth]{images/synthese}
-\caption{Hematopoiese}
-\label{fig:synthese}
-\end{figure*}
+D'après les données de l'article de référence\cite{Moignard}, on peut observer grâce à la figure \ref{fig:artcile2} présente en annexe, que ...... \\
+hub !!! \\ 
+rôle central de Sox7 (violet). \\
+rôle central (de controle) des cdh1 - cdh5 => nécéssaires pour le changement de transition ? \\
+différences 4SG et 4SG33genes. \\
 
 
 %\begin{figure}[ht]
 %\centering
-%\includegraphics[width=\linewidth]{images/ResultsPDB}
-%\caption{Affichage via PyMol du meilleur résultat du docking. L'Agest en violet, tandis que l'Ac est en vert et bleu (chaînes lourde et légère)}
-%\label{fig:ResultsPDB}
+%\includegraphics[width=\linewidth]{images/ikarosNotchGata}
+%\caption{ikaros - Notch - Gata}
+%\label{fig:ikarosNotchGata}
 %\end{figure}
+
+%\begin{figure*}[ht]
+%\centering
+%\includegraphics[width=\linewidth]{results/arbre1}
+%\caption{Arbre obtenu par clustering hierarchique non supervisé - 42 gènes}
+%\label{fig:arbre1}
+%\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=\linewidth]{results/arbre33genes2}
+\caption{Arbre obtenu par clustering hierarchique non supervisé - 33 gènes}
+\label{fig:arbre33}
+\end{figure*}
+
 
 
 %------------------------------------------------
@@ -283,16 +301,24 @@ Il faut prendre en compte que plus le seuil de confiance est élevé, moins les 
 \begin{figure*}[ht]
 \centering
 \includegraphics[width=\linewidth]{images/article2}
-\caption{Résultats de... ? issus de \textit{Moignard et al.}}
+\caption{Résultats du clustering hierarchique non supervisé issus de \textit{Moignard et al.}. On peut observer le niveau d'expression pour chaque gène dans toutes les cellules. Les colonnes représentent les cellules et les lignes les gènes. Les couleurs correspondent au stade embryonnaire d'où chaque cellule a été extraite.}
 \label{fig:artcile2}
 \end{figure*}
 
+%\begin{figure*}[ht]
+%\centering
+%\includegraphics[width=\linewidth]{images/article3}
+%\caption{Graphe orienté issus de \textit{Moignard et al.}}
+%\label{fig:artcile2}
+%\end{figure*}
+
 \begin{figure*}[ht]
 \centering
-\includegraphics[width=\linewidth]{images/article3}
-\caption{Graphe orienté issus de \textit{Moignard et al.}}
-\label{fig:artcile2}
+\includegraphics[width=\linewidth]{images/synthese}
+\caption{Hematopoiese}
+\label{fig:synthese}
 \end{figure*}
+
 
 \begin{figure*}[ht]
 \centering
