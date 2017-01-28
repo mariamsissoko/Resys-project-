@@ -1,0 +1,17 @@
+#Version txt 
+
+Présentation des données 
+Nous avons les données d’expression binarisées de 46 gènes pour 3934 cellules. Ces cellules peuvent potentiellement devenir des cellules sanguines et sont issues d’embryons de souris à différents stades du développement embryonnaire précoce. 
+Nous avons des cellules à 5 stades différents :
+•	E7.0 (primitive streak, PS),
+•	E7.5 (neural plate, NP) 
+•	E7.75 (head fold, HF).
+•	E8.25, cellules GFP+ (four somite, 4SG) déterminées comme des cellules sanguines
+•	E8.25, cellules Flk1+GFP− (4SFG−) déterminées comme des cellules endothéliales
+De plus, les différents types de cellules sont divisés en différentes lignées.
+
+Tri des données
+Dans un premier temps nous souhaitons faire un tri des gènes pour lesquels nous avons des donnés d’expression .En effet, tous ne sont pas directement impliqués dans la différenciation cellulaire .Nous avons donc d’une part recherché la fonction de tous les gènes et d‘autre part recherché les gènes qui sont exprimés dans toutes les cellules sans exception. Les gènes exprimés dans toutes les cellules sont Eif2b1, Mrpl19, Polr2a et Ubc.
+…
+Dans un premiers temps, nous avons donc crée un nouveau data set en éliminant les colonnes correspondant à ces gènes .Ensuite, nous avons créé un autre data set en sélectionnant 33 gènes que nous savons impliqués dans la différenciation cellulaire grâce à la littérature * (mettre ref).
+Après avoir le tri par rapport aux gènes 
