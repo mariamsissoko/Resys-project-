@@ -14,4 +14,6 @@ Tri des données
 Dans un premier temps nous souhaitons faire un tri des gènes pour lesquels nous avons des donnés d’expression .En effet, tous ne sont pas directement impliqués dans la différenciation cellulaire .Nous avons donc d’une part recherché la fonction de tous les gènes et d‘autre part recherché les gènes qui sont exprimés dans toutes les cellules sans exception. Les gènes exprimés dans toutes les cellules sont Eif2b1, Mrpl19, Polr2a et Ubc.
 …
 Dans un premiers temps, nous avons donc crée un nouveau data set en éliminant les colonnes correspondant à ces gènes .Ensuite, nous avons créé un autre data set en sélectionnant 33 gènes que nous savons impliqués dans la différenciation cellulaire grâce à la littérature * (mettre ref).
-Après avoir le tri par rapport aux gènes 
+Après avoir fait le tri par rapport aux gènes , nous avons divisé les données en fonction des types cellulaires .
+Pour terminer le tri des données nous avons séparé les 33 gènes en fonction de leur role .On a un dataset pour les gènes impliqués dans l'hématopoïese, un pour les gènes impliqués dans différenciation de l'endothélium et un pour les autres .
+Ainsi ,nous allons pouvoir reconstruire soit reseau pour toutes les cellules, soit un reseau pour un type cellulaire donné avec les gènes selectionnés .
