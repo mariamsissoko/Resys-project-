@@ -1,5 +1,15 @@
 #Version txt 
 
+Matériel et methodes 
+
+Uilisation de python 
+Nous avons ecrit un script python pour déterminer quels sont les gènes qui sont exprimés dans toutes les cellules et enlever les colonnes
+correspondant à ces gènes. 
+
+Utilisation de R 
+Nous avons aussi ecrit un script R qui permet de faire une classification hierarchique des gènes sélectionnés 
+
+
 Présentation des données 
 Nous avons les données d’expression binarisées de 46 gènes pour 3934 cellules. Ces cellules peuvent potentiellement devenir des cellules sanguines et sont issues d’embryons de souris à différents stades du développement embryonnaire précoce. 
 Nous avons des cellules à 5 stades différents :
