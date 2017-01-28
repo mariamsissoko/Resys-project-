@@ -9,6 +9,8 @@ correspondant à ces gènes.
 Utilisation de R 
 Nous avons aussi ecrit un script R qui permet de faire une classification hierarchique des gènes sélectionnés 
 
+Utilisation du serveur sur le site https://miic.curie.fr/workbench.php
+Grace à ce site nous pouvons reconstruire les réseaux de gènes que nous voulons et qui vont nous permettre de comprendre quelles interactions sont importantes lors de l'hématopoïèse.
 
 Présentation des données 
 Nous avons les données d’expression binarisées de 46 gènes pour 3934 cellules. Ces cellules peuvent potentiellement devenir des cellules sanguines et sont issues d’embryons de souris à différents stades du développement embryonnaire précoce. 
