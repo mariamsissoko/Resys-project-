@@ -29,3 +29,8 @@ Dans un premiers temps, nous avons donc crée un nouveau data set en éliminant 
 Après avoir fait le tri par rapport aux gènes , nous avons divisé les données en fonction des types cellulaires .
 Pour terminer le tri des données nous avons séparé les 33 gènes en fonction de leur role .On a un dataset pour les gènes impliqués dans l'hématopoïese, un pour les gènes impliqués dans différenciation de l'endothélium et un pour les autres .
 Ainsi ,nous allons pouvoir reconstruire soit reseau pour toutes les cellules, soit un reseau pour un type cellulaire donné avec les gènes selectionnés .
+
+
+Conclusion /perspectives 
+
+Concernant les améliorations possibles , nous aurions pu reconstruire les réseaux de gènes en utilisant d'autres méthodes .Nous aurions pu ensuite comparer ces différents résultats avec la littérature pour savoir avec quelle méthode on retrouve le plus de "vrais lien".
