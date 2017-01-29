@@ -90,9 +90,7 @@
 
 \Keywords{Réseaux de régulation -- Facteurs de transcription -- Hématopoïèse} 
 
-\newcommand{\keywordname}{Mots-clés} % Defines the keywords heading name
-
-%--------------------------------------------------------------------------------------
+\newcommand{\keywordname}{Mots-clés} %--------------------------------------------------------------------------------------
 %	ABSTRACT
 %--------------------------------------------------------------------------------------
 
@@ -105,7 +103,7 @@
 %--------------------------DEBUT-------------------------------------
 
 \begin{document}
-\flushbottom % Makes all text pages the same height
+\flushbottom 
 \maketitle
 
 
@@ -161,55 +159,74 @@ Afin d'obtenir un set de données non biaisées, nous avons choisi d'appliquer u
 
 %/ ou via mouse genom database
 
-\subsection{Gènes d'intérêt}
-%Expliquer tous les datasets formés : par lignée (fonctionnel) ou par type cellulaire (temporel). 
-Une fois le filtre appliqué, il nous a fallu procéder à différents tris des données. 
-\subsubsection{Tri par facteur de transcription}
-Les 42 gènes restant dans notre dataset n'étant pas tous impliqués directement dans la différenciation cellulaire, nous avons effectué un premier tri où ne sont conservés que les 33 facteurs de transcription. Les gènes marqueurs qui ne se trouvent plus dans le dataset sont les suivants : \textbf{Cdh1}, \textbf{Cdh5}, \textbf{EgfI7}, \textbf{Hbb-bH1}, \textbf{Itga2b} (ou CD41), \textbf{Kdr} (ou Flk1), \textbf{Kit}, \textbf{Pecam1}, \textbf{Procr}. Dans chacun des tris décrits ci-dessous, a été conservé un dataset avec les 42 gènes, et un autre avec les 33 facteurs de transciption afin de permettre d'analyser de façon spécifique toutes les interactions potentielles.
-\subsubsection{Tri par stade embryonnaire}
-Afin d'étudier les relations au niveau temporel, les données ont été séparées par type cellulaire présent (PS, NP, HF, 4SFG, 4SG). 
-\subsubsection{Tri par lignée}
-Enfin, une séparation des données au niveau fonctionnel a été effectué. Nous avons alors un dataset pour les gènes préférentiellement exprimés dans la lignée primitive (en bleu sur la figure \ref{fig:filtre33prof}), un autre dont les gènes sont davantage associés à l'hématopoïèse (en rouge) et le dernier pour les gènes impliqués dans la formation de l'endothélium (en rose/violet).
-
-\subsection{Reconstruction de réseaux}
-Les réseaux ont été établis en définissant les gènes pour noeuds et les interactions de régulation (activation ou inhibition) comme liens (les données étant des niveaux d'expression binarisés comme décrit ci-dessus). Nous avons choisi d'utiliser deux types d'algorithmes différents.
-
-\subsubsection{Algorithme PC}
-Une première démarche pour reconstruire les réseaux est d'appliquer l'algorithme PC\cite{pc} (Peter-Clark). Il s'agit d'un algorithme polynomial pour l'inférence de la structure de graphe. Pour cela, deux choix s'offraient à nous : utiliser le package \textit{pcalg} disponible sur R, ou bien le \href{https://miic.curie.fr}{Miic Web Server}\footnote{https://miic.curie.fr} (\textit{Multivariate Information based Inductive Causation}), outil développé par l'équipe enseignante. La maîtrise facile de l'interface et la diversité des paramètres modifiables pour la manipulation des données ont vite orienté notre choix pour l'utilisation de ce dernier. Nous avons notamment fait usage de l'interface \href{http://cytoscape.org}{Cytoscape}\footnote{http://cytoscape.org} accessible via le Miic Web Server. Miic a pour but de reconstruire des réseaux de causalité, non-causalité, ou bien mixte, entre les variables du dataset qui lui est soumis. Parmi les paramètres par défaut (ceux que nous avons utilisés), on peut noter que les échantillons sont considérés comme indépendants, même pour des conditions expérimentales identiques. Aussi, le réseau est reconstruit par maximum de vraisemblance normalisé (pour des analyses futures, on pourrait faire varier ce critère de complexité, notamment en utilisant la reconstruction basée sur les informations bayésiennes). Enfin, les effets de causes latentes sur les relations entre les noeuds ne sont pas mesurées par défaut mais pourrait également être un critére intéressant pour une analyse plus fine du réseau. 
-
 \begin{figure*}[ht]
 \centering
 \includegraphics[width=\linewidth]{images/pc}
 \caption{Algorithme PC (Spirtes, Glymour, Scheines (1993)}
-\label{fig:pcd}
+\label{fig:pc}
 \end{figure*}
 
+\subsection{Gènes d'intérêt}
 
-\subsubsection{Réseau hierarchique}
-Mariam. Code R. Bioconductor. 
+Une fois le filtre appliqué, il nous a fallu procéder à différents tris des données. 
+\subsubsection{Tri par facteur de transcription}
+Les 42 gènes restant dans notre dataset n'étant pas tous impliqués directement dans la différenciation cellulaire, nous avons effectué un premier tri où ne sont conservés que les 33 facteurs de transcription. Les gènes marqueurs qui ne se trouvent plus dans le dataset sont les suivants : \textbf{Cdh1}, \textbf{Cdh5}, \textbf{EgfI7}, \textbf{Hbb-bH1}, \textbf{Itga2b} (ou CD41), \textbf{Kdr} (ou Flk1), \textbf{Kit}, \textbf{Pecam1}, \textbf{Procr}. Dans chacun des tris décrits ci-dessous, a été conservé un dataset avec les 42 gènes, et un autre avec les 33 facteurs de transciption afin de permettre d'analyser de façon spécifique toutes les interactions potentielles.
+\subsubsection{Tri par stade embryonnaire}
+Afin d'étudier les relations au niveau temporel, les données ont été séparées par type cellulaire présent dans le dataset (PS, NP, HF, 4SFG, 4SG). 
+\subsubsection{Tri par lignée}
+Enfin, une séparation des données au niveau fonctionnel a été effectué. Nous avons alors un dataset pour les gènes préférentiellement exprimés dans la lignée primitive (en bleu sur la figure \ref{fig:filtre33prof}), un autre dont les gènes sont davantage associés à l'hématopoïèse (en rouge) et le dernier pour les gènes impliqués dans la formation de l'endothélium (en rose/violet).
+
+
+\subsection{Reconstruction de réseaux}
+Un réseau est défini comme un ensemble de points appelés noeuds connectés entre-eux par des liens, ces derniers pouvant être orientés ou non. On appelle degré d'un noeud le nombre de liens que celui-ci établi avec ses voisins. Dans le cas d'un réseau orienté, le degré regroupe les liens entrants et sortants. Dans notre étude, les réseaux ont été établis en définissant les gènes pour noeuds et les interactions de régulation (activation ou inhibition) comme liens (les données étant des niveaux d'expression binarisés comme décrit ci-dessus). Nous avons choisi d'utiliser deux types d'algorithmes différents.
+
+\subsubsection{Algorithme PC}
+Une première démarche pour reconstruire les réseaux est d'appliquer l'algorithme PC\cite{pc} (Peter-Clark). Il s'agit d'un algorithme polynomial pour l'inférence de l'architecture des réseaux. Pour cela, deux choix s'offraient à nous : utiliser le package \textit{pcalg} disponible sur R, ou bien le \href{https://miic.curie.fr}{Miic Web Server}\footnote{https://miic.curie.fr} (\textit{Multivariate Information based Inductive Causation}), outil développé par l'équipe enseignante. La robustesse de l'outil, la maîtrise facile de l'interface et la diversité des paramètres modifiables pour la manipulation des données ont vite orienté notre choix pour l'utilisation de ce dernier. Nous avons notamment fait usage de l'interface \href{http://cytoscape.org}{Cytoscape}\footnote{http://cytoscape.org} accessible via le Miic Web Server. Miic a pour but de reconstruire des réseaux de causalité, non-causalité, ou mixte, entre les variables du dataset qui lui est soumi. Il permet de reconstruire des graphes acycliques dirigés (DAG). 
+
+\par Parmi les paramètres par défaut (ceux que nous avons utilisés), on peut noter que les variables du réseaux sont considérées comme indépendantes, même pour des conditions expérimentales identiques. Aussi, le réseau est reconstruit par maximum de vraisemblance normalisé (pour des analyses futures, on pourrait faire varier ce critère de complexité, notamment en utilisant la reconstruction basée sur les informations bayésiennes). Enfin, les effets de causes latentes sur les relations entre les noeuds ne sont pas mesurées par défaut mais pourrait également être un critére intéressant pour une analyse plus fine du réseau. 
+
+\par Les différentes étapes de l'algorithme sont détaillées figure \ref{fig:pc}. Brièvement, la première étape consiste en la reconstruction de l'architecture du réseau. Les directions des arcs appartenant aux V-structures sont ensuite déterminées. Enfin, quand cela est possible, la direction des arcs restants est calculée en tenant compte du principe d'acyclicité. 
+
+
+\subsubsection{Réseau hiérarchique}
+L’objectif principal des méthodes de classification automatique est de répartir les éléments d’un ensemble en groupes, c’est-à-dire d’établir une partition de cet ensemble.
+A cette partition vient s'ajouter un critère de hiérarchie de parties, qui permettent alors de former un arbre binaire, appelé le dendrogramme\footnote{http://pbil.univ-lyon1.fr/R/pdf/stage7.pdf}. L'algorithme de clustering hiérarchique non supervisé est disponible au travers de la fonction \textit{hclust}\footnote{https://cran.r-project.org/web/packages/cluster/cluster.pdf} de R. Celle-ci prend pour \textit{input} une matrice de distance. Nous avons donc préalablement constitué cette matrice à partir des données à analyser (distance euclidienne calculée entre chaque couple de données via la fonction \textit{dist} de R). Le dendogramme permet de visualiser simplement les regroupements de gènes par profil d'expression, et ainsi d'établir d'éventuelles catégories fonctionnelles.
 
 %------------------------------------------------
 %--------------RESULTATS----------------------------------
 %------------------------------------------------
 
-\newpage
+
 \section{Résultats et discussion}
-%Faire un choix entre précision (spécificité des données ?) et lisibilité. 
+ 
 \subsection{Réseaux obtenus}
-Face à la diversité des paramètres qui peuvent être modifiés via MIIC (sur l'interface Cytoscape), nous avons choisi de ne nous focaliser que sur un unique paramètre : le seuil de confiance. Ainsi nous avons construit, pour chaque set de données généré, de 2 à 10 réseaux différents, les premiers réseaux ayant un seuil de confiance élevé (par rapport à l'étendue de celui-ci) et les derniers ayant un seuil de confiance plus bas. Le nombre de réseau obtenu est fonction du nombre de gènes compris dans le dataset. Tous les autres paramètres par défaut sont restés inchangés par souci de compréhension. 
-% On aurait pu aussi choisir de modifier le confidence cut This step aims at filtering the network according to a confidence ratio, calculated by estimating the probability to discard an edge in more randomization of the input dataset and comparing it to the estimation of the probability in the real dataset. The closer this ratio is to 0, the more trustworthy the edge is.
+Face à la diversité des paramètres qui peuvent être modifiés via MIIC (sur l'interface Cytoscape), nous avons choisi de ne nous focaliser que sur un unique paramètre : le seuil de confiance. Ainsi nous avons construit, pour chaque set de données généré, de 2 à 10 réseaux différents, les premiers réseaux ayant un seuil de confiance élevé (par rapport à l'étendue de celui-ci) et les derniers ayant un seuil de confiance plus bas. Le nombre de réseau obtenu est fonction du nombre de gènes compris dans le dataset. Tous les autres paramètres par défaut sont restés inchangés par souci de compréhension et de clareté. Ne sont représentés ici que les réseaux qui nous ont semblé les plus pertinents et intelligibles. Notons tout de même que pour certains réseaux, il nous a fallu faire un choix entre précision et lisibilité du réseau. C'est sur ce dernier critère que nous nous sommes concentrées afin de pouvoir obtenir des données interprétables. Il faut prendre en compte que plus le seuil de confiance est élevé, moins les relations sont nombreuses, donc des gènes disparaissent du réseau ainsi formé. Cependant, ces relations restantes sont d'autant plus fiables. 
+
+\subsubsection{Vue d'ensemble : clustering hiérarchique}
+Le dendogramme obtenu avec \textit{hclust}, à partir des 33 facteurs de transcription, est visualisable sur la figure \ref{fig:arbre33}. On peut remarquer que deux branches principales apparaissent, dont l'une présente une grande majorité (89\%) des gènes impliqués préférentiellement dans la lignée hématopoïétique (en rouge). La seconde branche principale diverge elle-même en deux embranchements principaux. L'un forme un cluster constitué à 90\% des gènes de la lignée primitive (en bleu). L'autre forme un cluster qui se réparti en deux plus petits clusters dont l'un contient uniquement des gènes précurseurs de l'endothélium (en rose/violet). 
+
+\par Cette répartition est donc relativement bien définie, bien que l'on retrouve des gènes de la lignée primitive dans presque tous les clusters. Le déroulement asynchrone de l'hématopoïèse dont l'article de \textit{Moignard et al.} fait mention (à partir des données d'analyse \textit{single cell} - figure \ref{fig:article2}) pourrait expliquer cette répartition : \textit{"le fait d'obtenir des cellules issues de différents stades embryonnaires dans les mêmes clusters suggère que la maturation des cellules du mésoderme précoce est asynchrone, avec notamment des cellules issues de différents stades qui présentent un profil d'expression identique"}.
 
 
-%Cependant, nous avons testé quelques dataset en modifiant la latence (par défaut : prise en compte) afin de voir si des différences notables quant aux relations entre les noeuds apparaissaient.
-
-Il faut prendre en compte que plus le seuil de confiance est élevé, moins les relations sont nombreuses, donc des gènes disparaissent du réseau ainsi formé. Cependant, ces relations restantes sont d'autant plus fiables. 
-
-\subsubsection{Tri par stade embryonnaire}
-Asynchrone, difficulté de recréer un réseau causal. 
-Importance des gènes marqueurs en tant qu'inducteur d'un stade embryonnaire... transition assurée par ces gènes ? Ou si gènes présents, suffisants pour passer dans l'état embryonnaire suivant ?
+\subsubsection{Vue d'ensemble : réseau obtenu par PC}
+Les réseaux obtenus sur l'ensemble des 42 gènes ou des 33 facteurs de transcription (FT) sont difficilement lisible. Le réseau obtenu a donc été choisi en faisant des compromis (via la modification du seuil de confiance), à partir du jeu de données des FT, afin d'être comparable au réseau présenté lors du cours de RESYS, figure \ref{fig:filtre33prof}. Nos résultats sont présentés figure \ref{fig:filtre33}. On y retrouve les mêmes \textit{hubs} (noeuds dont le degré est élevé): \textbf{Ikaros}, \textbf{Sox7}, \textbf{Tal1} et \textbf{Notch1}. Cependant, le \textit{hub} formé par \textbf{Erg} a disparu dans notre réseau. Les autres noeuds présentent des degrés plus faible, ce qui tend à proposer l'hypothèse d'une répartition non aléatoire. En effet, le nombre moyen de connexions entre les noeuds suit une répartition trop étendue pour être aléatoire. La distribution de degré pourrait donc suivre une loi de puissance. Le réseau représentant les relations régissant la différenciation des précurseurs hématopoïétiques chez l'embryon est donc un réseau de type \textit{scale free}\href{http://eaton.math.rpi.edu/CSUMS/Papers/ScaleFree/Scale-Free\%20Networks.pdf}{\cite{Scale}}.
 
 
-\subsubsection{Tri par lignée}
+%A MODIFIER 
+%Cependant on observe une régulation positive entre le gène endothélial Procr et le gène hématopoïétique Sfp1, cette observation soulève une petite remise en question de l'interprétaion des relations biologiques.
+%
+
+
+\subsubsection{Tri par lignée - fonctionnel}
+
+%A MODIFIER
+%Les flèches bleues indiquant une régulation négative sont placés entre des gènes hématopoïétiques et des gènes endothéliaux (et inversement) ou entre des gènes de la lignée primitive vers des gènes d'une autre lignée (et inversement). En particulier on observe que le gène Sox7 impliqué dans la différenciation endothéliale régule positivement le facteur de transcription central de la différenciation endothéliale Erg. De plus Sox7 régule négativement Myb qui est un facteur de transcription impliqué dans la différenciation hématopoïetique. Ces observations sont cohérentes avec les relations biologiques connues entre les gènes.
+%A l'aide de Pcalg, nous avons reconstruit deux réseaux correspondants respectivement aux gènes de la lignée endothéliale et de la lignée hématopoïetique. Sur le réseau des gènes endothéliaux, nous observons que Sox7 est activé par de nombreux gènes. On suppose que l'expression de Sox7 est d'autant plus importante qu'il est un répresseur de Runx1, facteur de transcription clé de la différenciation hématopoïétique. Dans le réseau des gènes hématopoïétiques, les gènes Runx1 et Myb constituent des cibles terminales. On suppose donc qu'ils jouent des rôles majeur dans la différenciation hématopoïétique. Cette supposition est renforcée par le fait que, dans le réseau 4SG, caractéristique des precurseurs hématopoïétiques, généré avec MIIC, Runx1 n'est lié un aucun autre gène, ce qui signifie qu'il est exprimé de manière constante et non variable.
+%
+%Runx1 n'est lié un aucun autre gène, ce qui signifie qu'il est exprimé de manière constante et non variable. \\
+%Runx1 = état stable ?
+
+
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\linewidth]{results/bleu}
@@ -217,14 +234,12 @@ Importance des gènes marqueurs en tant qu'inducteur d'un stade embryonnaire... 
 \label{fig:PS}
 \end{figure}
 
-% devrait pas avoir de Runx1 ou dans l'autre ?
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\linewidth]{results/rouge}
-\caption{Lignée hématopïétique}
+\caption{Lignée hématopoïétique}
 \label{fig:4SG}
 \end{figure}
-
 
 \begin{figure}[ht]
 \centering
@@ -232,6 +247,22 @@ Importance des gènes marqueurs en tant qu'inducteur d'un stade embryonnaire... 
 \caption{Lignée endothéliale}
 \label{fig:4SFG}
 \end{figure}
+
+\subsubsection{Tri par stade embryonnaire -  temporel}
+%Asynchrone, difficulté de recréer un réseau causal. 
+%Importance des gènes marqueurs en tant qu'inducteur d'un stade embryonnaire... transition assurée par ces gènes ? Ou si gènes présents, suffisants pour passer dans l'état embryonnaire suivant ?
+%\\
+%
+%A MODIFIER
+%Au cours des premiers stades (PS et NP), on voit que le facteur de transcription clé de la différenciation endothéliale, Sox17 est réprimé. Cela suggère que la différenciation endothéliale est encore faible à ces stades. En revanche, on observe qu'à partir du stade HF, Sox17 n'est plus réprimé et joue lui même son rôle de répresseur de gènes hématopoïétiques. On suppose donc que la différenciation endothéliale est forte à partir du stade HF, d'autant plus que les gènes hématopoïétiques ne sont pas particulièrement activés. Les stades 4SG et 4SFG (Fig 6  7) sont très caractéristiques des différenciations hématopoïétque et endothéliale (respectivement).
+%Le stade 4SFG est particuliérement marqué par la répression de gènes hématopoïétiques et l'activation de gènes endothéliaux. L'élément d'analyse du réseau 4SG qui nous a paru particulièrement important est le fait que le gène Runx1 ne soit lié à aucun autre partenaire. Cela signifie qu'il est exprimé de manière constante et non variable, on peut donc considérer qu'il suffit à lui seul pour engendrer la différenciation hématopoïétique.
+
+
+%D'après les données de l'article de référence\cite{Moignard}, on peut observer grâce à la figure \ref{fig:artcile2} présente en annexe, que ...... \\
+%hub !!! \\ 
+%rôle central de Sox7 (violet). \\
+%rôle central (de controle) des cdh1 - cdh5 => nécéssaires pour le changement de transition ? \\
+%différences 4SG et 4SG33genes. \\
 
 \begin{figure}[ht]
 \centering
@@ -249,12 +280,8 @@ Importance des gènes marqueurs en tant qu'inducteur d'un stade embryonnaire... 
 \end{figure*}
 
 
-\subsection{Vérifications expérimentales}
-D'après les données de l'article de référence\cite{Moignard}, on peut observer grâce à la figure \ref{fig:artcile2} présente en annexe, que ...... \\
-hub !!! \\ 
-rôle central de Sox7 (violet). \\
-rôle central (de controle) des cdh1 - cdh5 => nécéssaires pour le changement de transition ? \\
-différences 4SG et 4SG33genes. \\
+%\subsection{Vérifications expérimentales}
+
 
 
 %\begin{figure}[ht]
@@ -273,7 +300,7 @@ différences 4SG et 4SG33genes. \\
 
 \begin{figure*}[ht]
 \centering
-\includegraphics[width=\linewidth]{results/arbre33genes2}
+\includegraphics[width=\linewidth]{results/arbre33genes}
 \caption{Arbre obtenu par clustering hierarchique non supervisé - 33 gènes}
 \label{fig:arbre33}
 \end{figure*}
@@ -286,7 +313,9 @@ différences 4SG et 4SG33genes. \\
 \newpage
 \section*{Conclusion}
 \addcontentsline{toc}{section}{Conclusion}
-
+%Cependant, nous n'avons pas testé de dataset en modifiant la latence (par défaut : prise en compte) : intéressant afin de voir si des différences notables quant aux relations entre les noeuds apparaissaient.
+%\\
+%La non-reconstruction des cycles semble problématique étant donné que les mécanismes de différenciation des précurseurs hématopoïetiques sont parfois régis par des cycles.
 
 
 %------------------------------------------------
@@ -301,8 +330,8 @@ différences 4SG et 4SG33genes. \\
 \begin{figure*}[ht]
 \centering
 \includegraphics[width=\linewidth]{images/article2}
-\caption{Résultats du clustering hierarchique non supervisé issus de \textit{Moignard et al.}. On peut observer le niveau d'expression pour chaque gène dans toutes les cellules. Les colonnes représentent les cellules et les lignes les gènes. Les couleurs correspondent au stade embryonnaire d'où chaque cellule a été extraite.}
-\label{fig:artcile2}
+\caption{Résultats du clustering hierarchique non supervisé issus de \textit{Moignard et al.} à partir de l'analyse par \textit{single cell}. On peut observer le niveau d'expression pour chaque gène dans toutes les cellules. Les colonnes représentent les cellules et les lignes les gènes. Les couleurs correspondent au stade embryonnaire d'où chaque cellule a été extraite.}
+\label{fig:article2}
 \end{figure*}
 
 %\begin{figure*}[ht]
@@ -315,31 +344,41 @@ différences 4SG et 4SG33genes. \\
 \begin{figure*}[ht]
 \centering
 \includegraphics[width=\linewidth]{images/synthese}
-\caption{Hematopoiese}
+\caption{Parallèle entre l'hématopoïèse et la formation des vaisseaux sanguins à des stades du développement précoce embryonnaire (vertébrés)\href{http://circres.ahajournals.org/content/112/9/1272}{\cite{Marcelo}}}
 \label{fig:synthese}
 \end{figure*}
 
 
 \begin{figure*}[ht]
 \centering
-\includegraphics[width=\linewidth]{images/devptCycle}
-\caption{Cycle de développement de \textit{Mus musculus}}
-\label{fig:devptCycle}
+\includegraphics[width=\linewidth]{images/syntheseSuper}
+\caption{Développement de l'hémangioblaste (précurseur commun des cellules endothéliales et hématopoïétiques) et de l'épithélium hémogénique à partir de cellules pluripotentes\href{http://cdn.intechopen.com/pdfs-wm/46823.pdf}{\cite{Chen}}}
+\label{fig:syntheseSuper}
 \end{figure*}
+
 
 \begin{figure*}[ht]
 \centering
 \includegraphics[width=\linewidth]{images/devpt}
-\caption{Détails du développement de \textit{Mus musculus}\cite{Gaudin} du stade E7 à E11.5, dans le compartiment extra-embryonnaire (en rouge) et intra-embryonnaire (en jaune). En encart figurent les sites impliqués dans la génération des CSH, c’est-à-dire l’aorte et sa partie ventrale (et les artères omphalomésentérique (OA) et ombilicale (UA)). AGM : aorte-gonades-mésonephros ; FF : foie fœtal ; P-Sp : splanchnopleure para-aortique ; Sp : splanchnopleure ; SV : sac vitellin}
+\caption{Détails du développement précoce de \textit{Mus musculus}\href{http://www.ipubli.inserm.fr/handle/10608/6217}{\cite{Gaudin}} du stade E7 à E11.5, dans le compartiment extra-embryonnaire (en rouge) et intra-embryonnaire (en jaune). En encart figurent les sites impliqués dans la génération des CSH, c’est-à-dire l’aorte et sa partie ventrale (et les artères omphalomésentérique (OA) et ombilicale (UA)). AGM : aorte-gonades-mésonephros ; FF : foie fœtal ; P-Sp : splanchnopleure para-aortique ; Sp : splanchnopleure ; SV : sac vitellin}
 \label{fig:devpt}
 \end{figure*}
 
-
+ % http://embomolmed.embopress.org/content/7/11/1388
 
 
 %\section*{Annexes}
 
- 
+%\begin{figure*}[ht]
+%\centering
+%\includegraphics[width=\linewidth]{images/devptCycle}
+%\caption{Cycle de développement de \textit{Mus musculus}}
+% https://stemcells.nih.gov/info/2001report/appendixA.htm
+%\label{fig:devptCycle}
+%\end{figure*}
+
+
+
 %\addcontentsline{toc}{section}{Annexes}
 %
 %\subsection*{Matériel additionnel} 
