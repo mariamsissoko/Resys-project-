@@ -32,5 +32,6 @@ Ainsi ,nous allons pouvoir reconstruire soit reseau pour toutes les cellules, so
 
 
 Conclusion /perspectives 
-
+Lors du stade PS les gènes Ikaro 8 Tal1 et ETV2 semblent etre déterminants pour que les cellules deviennent par la suite des cellules de la lignée hématopoïétique ou de la lignée endothéliale.
+En revanche dans les cellules 4SFG ce sont les gènes tal1 et Erg qui semblent déterminants .Le facteur de transcription Sox 17 est activé contrairement au cellules NP et active Erg.
 Concernant les améliorations possibles , nous aurions pu reconstruire les réseaux de gènes en utilisant d'autres méthodes .Nous aurions pu ensuite comparer ces différents résultats avec la littérature pour savoir avec quelle méthode on retrouve le plus de "vrais lien".
